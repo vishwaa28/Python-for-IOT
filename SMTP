@@ -1,0 +1,66 @@
+Here is a Python program using the smtplib module to send an email via SMTP:
+
+SMTP Email Sending Program
+
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+# Email configuration
+SMTP_SERVER = 'smtp.gmail.com'  # Replace with your SMTP server
+SMTP_PORT = 587
+EMAIL_ADDRESS = 'your_email@gmail.com'  # Replace with your email address
+EMAIL_PASSWORD = 'your_password'  # Replace with your app password or email password
+
+# Function to send email
+def send_email(to_email, subject, message):
+    try:
+        # Create a MIMEText message
+        msg = MIMEMultipart()
+        msg['From'] = EMAIL_ADDRESS
+        msg['To'] = to_email
+        msg['Subject'] = subject
+
+        # Add message body
+        msg.attach(MIMEText(message, 'plain'))
+
+        # Connect to the SMTP server
+        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+            server.starttls()  # Start TLS encryption
+            server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+            server.sendmail(EMAIL_ADDRESS, to_email, msg.as_string())
+            print("Email sent successfully!")
+
+    except Exception as e:
+        print(f"Error sending email: {e}")
+
+# Replace these values with your desired recipient, subject, and message
+recipient_email = 'recipient_email@gmail.com'  # Replace with recipient email
+email_subject = 'Test Email'
+email_message = 'Hello, this is a test email sent from Python!'
+
+# Call the function to send email
+send_email(recipient_email, email_subject, email_message)
+
+Steps to Run the Program:
+
+1. Replace your_email@gmail.com and your_password with your email and password.
+
+For Gmail users: Enable "Allow less secure apps" or generate an App Password.
+
+
+
+2. Replace recipient_email@gmail.com with the recipient's email address.
+
+
+3. Save the script and run it.
+
+
+
+Notes:
+
+If you're using Gmail, you might need to enable less secure app access or use an App Password.
+
+Ensure you use TLS (Transport Layer Security) for secure communication.
+
+
